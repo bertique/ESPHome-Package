@@ -1,0 +1,50 @@
+# NOTE: this must be placed in your configuration under text_sensor, not sensor.
+platform: homeassistant
+id: ${hass_domain}_${hass_entity_id}
+entity_id: ${hass_domain}.${hass_entity_id}
+on_value:
+  - lambda: |-
+        ESP_LOGI("SWITCH", "got new state for ${hass_domain}.${hass_entity_id}: %s", x.c_str());
+  - if:
+     condition:
+       lambda: |-
+         return !id(user_is_interacting);
+     then:
+      - logger.log: "running switch on_value"
+      - if:
+          condition:
+            lambda: 'return "on" == x;'
+          then:
+            - logger.log: "setting switch to on"
+            - lvgl.widget.update:
+                id: button_${hass_domain}_${hass_entity_id}
+                state:
+                  checked: true
+                  disabled: false
+            - lvgl.label.update:
+                id: label_${hass_domain}_${hass_entity_id}
+                text: ${icon_on}
+                text_color: 0xeebf41
+      - if:
+          condition:
+            lambda: 'return "off" == x;'
+          then:
+            - logger.log: "setting switch to off"
+            - lvgl.widget.update:
+                id: button_${hass_domain}_${hass_entity_id}
+                state:
+                  checked: false
+                  disabled: false
+            - lvgl.label.update:
+                id: label_${hass_domain}_${hass_entity_id}
+                text: ${icon_off}
+                text_color: 0xababab
+      - if:
+          condition:
+            lambda: 'return "unavailable" == x || "unknown" == x;'
+          then:
+            - logger.log: "setting switch to unknown"
+            - lvgl.widget.update:
+                id: button_${hass_domain}_${hass_entity_id}
+                state:
+                  disabled: true
