@@ -209,6 +209,7 @@ font:
       "\U000F12BE", # mdi:stairs-down
       "\U000F12BD", # mdi:stairs-up
       "\U000F12BA", # mdi:string-lights
+      "\U000F12BB", # mdi:string-lights-off
       "\U000F06AC", # mdi:subway
       "\U000F04DF", # mdi:subway-variant
       "\U000F04E6", # mdi:sync
