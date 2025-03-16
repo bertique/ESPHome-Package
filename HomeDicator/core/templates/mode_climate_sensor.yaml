@@ -1,0 +1,47 @@
+# NOTE: this must be placed in your configuration under text_sensor, not sensor.
+platform: homeassistant
+id: mode_${hass_climate_id}
+entity_id: climate.${hass_climate_id}
+on_value:
+  - lambda: |-
+        ESP_LOGI("MODE", "got HASS climate mode: %s", x.c_str());
+  - if:
+     condition:
+       lambda: |-
+         return !id(user_is_interacting);
+     then:
+      - logger.log: "running mode on_value"
+      - lvgl.buttonmatrix.update:
+          id: mode_selector
+          state:
+            disabled: false
+      - if:
+          condition:
+            lambda: 'return "off" == x;'
+          then:
+            - logger.log: "setting mode to off"
+            - lvgl.matrix.button.update:
+                id: state_off
+                selected: true
+                control:
+                  checked: true
+      - if:
+          condition:
+            lambda: 'return "cool" == x;'
+          then:
+            - logger.log: "setting mode to cool"
+            - lvgl.matrix.button.update:
+                id: state_cool
+                selected: true
+                control:
+                  checked: true
+      - if:
+          condition:
+            lambda: 'return "heat" == x;'
+          then:
+            - logger.log: "setting mode to heat"
+            - lvgl.matrix.button.update:
+                id: state_heat
+                selected: true
+                control:
+                  checked: true

@@ -1,0 +1,11 @@
+if:
+  condition:
+    lambda: |-
+      return id(user_is_interacting);
+  then:
+    - homeassistant.action:
+        action: climate.set_temperature
+        data:
+          entity_id: climate.${hass_climate_id}
+          temperature: !lambda |-
+            return static_cast<int>(x);

@@ -1,0 +1,86 @@
+obj:
+  height: SIZE_CONTENT
+  width: SIZE_CONTENT
+  pad_all: 0
+  bg_opa: TRANSP
+  widgets:
+    - obj:
+        styles: info_or_button_tile_wide
+        width: 440
+        layout:
+          type: FLEX
+          flex_flow: COLUMN
+          flex_align_main: START
+          flex_align_cross: CENTER
+          flex_align_track: CENTER
+          pad_row: 0
+        widgets:
+          - label:
+              text_font: libreFranklin18
+              text_color: 0xffffff
+              text: ${title}
+              pad_top: 18
+              pad_bottom: 10
+          - obj:
+              clickable: false
+              bg_opa: TRANSP
+              width: SIZE_CONTENT
+              height: SIZE_CONTENT
+              layout:
+                type: FLEX
+                flex_flow: ROW
+                flex_align_main: CENTER
+                flex_align_cross: CENTER
+              widgets:
+                - button:
+                    id: spin_down
+                    bg_color: 0x34b3ce
+                    on_press:
+                      then:
+                        - globals.set:
+                            id: user_is_interacting
+                            value: 'true'
+                        - lvgl.spinbox.decrement: lvgl_spinbox_${hass_climate_id}
+                    on_release:
+                      then:
+                        - globals.set:
+                            id: user_is_interacting
+                            value: 'false'
+                    widgets:
+                      - label:
+                           text: "-"
+                - spinbox:
+                    id: lvgl_spinbox_${hass_climate_id}
+                    align: CENTER
+                    text_align: CENTER
+                    bg_opa: TRANSP
+                    border_width: 0
+                    text_font: libreFranklin32
+                    text_color: 0xeebf41
+                    state:
+                      disabled: true
+                    range_from: ${min_value}
+                    range_to: ${max_value}
+                    value: ${min_value}
+                    step: 1
+                    rollover: false
+                    digits: 2
+                    decimal_places: 0
+                    on_value: !include helpers/spinbox_on_value.yaml
+                - button:
+                    id: spin_up
+                    bg_color: 0xc84545
+                    on_press:
+                      then:
+                        - globals.set:
+                            id: user_is_interacting
+                            value: 'true'
+                        - lvgl.spinbox.increment: lvgl_spinbox_${hass_climate_id}
+                    on_release:
+                      then:
+                        - globals.set:
+                            id: user_is_interacting
+                            value: 'false'
+                    widgets:
+                      - label:
+                          text: "+"
