@@ -109,6 +109,8 @@ ota:
 wifi:
   ssid: ${wifi_ssid}
   password: ${wifi_password}
+  domain: ${wifi_domain}
+  reboot_timeout: ${wifi_reboot_timeout}
   on_disconnect:
       - lvgl.label.update:
           id: lvgl_wifi_signal_icon

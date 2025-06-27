@@ -24,6 +24,7 @@ font:
       "\U000F0FD2", # mdi:bed-king
       "\U000F0FD1", # mdi:bed-king-outline
       "\U000F08A0", # mdi:bed-empty
+      "\U000F1C21", # mdi:bench
       "\U000F00DE", # mdi:brightness-5
       "\U000F1302", # mdi:bunk-bed
       "\U000F0097", # mdi:bunk-bed-outline
@@ -208,6 +209,7 @@ font:
       "\U000F12BE", # mdi:stairs-down
       "\U000F12BD", # mdi:stairs-up
       "\U000F12BA", # mdi:string-lights
+      "\U000F12BB", # mdi:string-lights-off
       "\U000F06AC", # mdi:subway
       "\U000F04DF", # mdi:subway-variant
       "\U000F04E6", # mdi:sync

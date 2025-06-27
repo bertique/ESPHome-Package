@@ -1,0 +1,98 @@
+obj:
+  styles: info_or_button_tile
+  layout:
+    type: FLEX
+    flex_flow: COLUMN
+    flex_align_main: CENTER
+    flex_align_cross: CENTER
+    flex_align_track: CENTER
+    pad_row: 0
+  widgets:
+    - obj:
+        bg_opa: TRANSP
+        width: 205
+        pad_all: 0
+        layout:
+          type: FLEX
+          flex_flow: ROW
+          flex_align_main: CENTER
+          flex_align_cross: CENTER
+          flex_align_track: CENTER
+          pad_row: 0
+        widgets:
+          - buttonmatrix:
+              id: mode_selector
+              one_checked: true
+              bg_opa: TRANSP
+              width: 205
+              height: 50
+              border_width: 0
+              pad_all: 0
+              state:
+                disabled: true
+              rows:
+                - buttons:
+                    - id: state_off
+                      text: "Off"
+                      control:
+                        checkable: true
+                    - id: state_heat
+                      text: "Heat"
+                      control:
+                        checkable: true
+                      # heat on: 0xc84545
+                      # heat off: 0x8D3030
+                    - id: state_cool
+                      text: "Cool"
+                      control:
+                        checkable: true
+                      # cool on: 0x34b3ce
+                      # cool off: 0x23798D
+              on_press:
+                then:
+                  - globals.set:
+                      id: user_is_interacting
+                      value: 'true'
+              on_release:
+                then:
+                  - globals.set:
+                      id: user_is_interacting
+                      value: 'false'
+                  - if:
+                      condition:
+                        lambda: 'return id(state_off) == x;'
+                      then:
+                        - logger.log:
+                            format: "set climate mode to off"
+                        - homeassistant.action:
+                            action: climate.set_hvac_mode
+                            data:
+                              entity_id: climate.${hass_climate_id}
+                              hvac_mode: "off"
+                  - if:
+                      condition:
+                        lambda: 'return id(state_heat) == x;'
+                      then:
+                        - logger.log:
+                            format: "set climate mode to heat"
+                        - homeassistant.action:
+                            action: climate.set_hvac_mode
+                            data:
+                              entity_id: climate.${hass_climate_id}
+                              hvac_mode: "heat"
+                  - if:
+                      condition:
+                        lambda: 'return id(state_cool) == x;'
+                      then:
+                        - logger.log:
+                            format: "set climate mode to cool"
+                        - homeassistant.action:
+                            action: climate.set_hvac_mode
+                            data:
+                              entity_id: climate.${hass_climate_id}
+                              hvac_mode: "cool"
+    - label:
+        text_align: CENTER
+        styles: info_or_button_tile_subtitle
+        text: ${title}
+        text_font: libreFranklin10

@@ -1,0 +1,51 @@
+obj:
+  styles: info_or_button_tile
+  layout:
+    type: FLEX
+    flex_flow: COLUMN
+    flex_align_main: CENTER
+    flex_align_cross: CENTER
+    flex_align_track: CENTER
+    pad_row: 0
+  widgets:
+    - obj:
+        bg_opa: TRANSP
+        layout:
+          type: FLEX
+          flex_flow: COLUMN
+          flex_align_main: CENTER
+          flex_align_cross: CENTER
+          flex_align_track: CENTER
+          pad_row: 20
+        widgets:
+          - button:
+              checkable: true
+              state:
+                disabled: true
+              bg_opa: TRANSP
+              pressed:
+                bg_opa: TRANSP
+              checked:
+                bg_opa: TRANSP
+              shadow_opa: TRANSP
+              id: button_${hass_domain}_${hass_entity_id}
+              widgets:
+                - label:
+                    id: label_${hass_domain}_${hass_entity_id}
+                    text_font: icons35
+                    text_align: CENTER
+                    text_color: 0xababab
+                    text: ${icon_off}
+                    bg_opa: TRANSP
+                    bg_color: 0x272727
+                    border_width: 0
+              on_short_click:
+                - logger.log: "switch clicked"
+                - homeassistant.action:
+                    action: ${hass_action}
+                    data:
+                      entity_id: ${hass_domain}.${hass_entity_id}
+          - label:
+              styles: info_or_button_tile_subtitle
+              text: ${title}
+              text_font: libreFranklin10
