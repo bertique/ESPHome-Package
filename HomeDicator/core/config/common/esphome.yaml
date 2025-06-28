@@ -39,8 +39,8 @@ logger:
   level: INFO
 
 api:
-  encryption:
-    key: ${api_key}
+  #encryption:
+  #  key: ${api_key}
   on_client_connected:
     - if:
         condition:
