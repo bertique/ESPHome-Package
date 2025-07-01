@@ -1,0 +1,160 @@
+# HomeDicator/user_interface/templates/tiles/media_player/wide.yaml
+#
+# This template defines a wide LVGL tile for media player control and display.
+# It includes labels for media title, artist, album, and buttons for playback.
+
+obj:
+  height: SIZE_CONTENT
+  width: SIZE_CONTENT
+  pad_all: 0
+  bg_opa: TRANSP
+  widgets:
+    - obj:
+        styles: info_or_button_tile_wide # Reuses a common wide tile style
+        width: 440
+        height: 165 # Adjusted height to fit more info and buttons
+        layout:
+          type: FLEX
+          flex_flow: COLUMN
+          flex_align_main: START
+          flex_align_cross: CENTER
+          flex_align_track: CENTER
+          pad_row: 0
+        widgets:
+          # Media Title
+          - label:
+              id: lvgl_media_title_${hass_media_player_id}
+              text_font: libreFranklin18
+              text_color: 0xffffff
+              text: "No Title"
+              pad_top: 15
+              pad_bottom: 5
+              text_align: CENTER
+              width: 400 # Constrain width for centering
+              long_mode: CLIP # Clip if text is too long
+
+          # Media Artist
+          - label:
+              id: lvgl_media_artist_${hass_media_player_id}
+              text_font: libreFranklin14
+              text_color: 0xababab
+              text: "No Artist"
+              pad_bottom: 5
+              text_align: CENTER
+              width: 400
+              long_mode: CLIP
+
+          # Media Album Name
+          - label:
+              id: lvgl_media_album_${hass_media_player_id}
+              text_font: libreFranklin10
+              text_color: 0xababab
+              text: "No Album"
+              pad_bottom: 15
+              text_align: CENTER
+              width: 400
+              long_mode: CLIP
+
+          # Playback Control Buttons
+          - obj:
+              bg_opa: TRANSP
+              width: SIZE_CONTENT
+              height: SIZE_CONTENT
+              layout:
+                type: FLEX
+                flex_flow: ROW
+                flex_align_main: SPACE_AROUND # Distribute buttons evenly
+                flex_align_cross: CENTER
+                pad_all: 0
+                pad_row: 0
+                pad_column: 20 # Spacing between buttons
+              widgets:
+                # Previous Button
+                - button:
+                    id: lvgl_media_previous_button_${hass_media_player_id}
+                    bg_color: 0x202020 # Dark background
+                    bg_opa: COVER
+                    radius: 10 # Rounded corners
+                    width: 70
+                    height: 50
+                    state: # Initially disabled until HA connects
+                      disabled: true
+                    on_short_click:
+                      then:
+                        - globals.set:
+                            id: user_is_interacting
+                            value: 'true'
+                        - homeassistant.action:
+                            action: media_player.media_previous_track
+                            data:
+                              entity_id: media_player.${hass_media_player_id}
+                        - delay: 200ms # Brief delay to avoid rapid clicks
+                        - globals.set:
+                            id: user_is_interacting
+                            value: 'false'
+                    widgets:
+                      - label:
+                          id: lvgl_media_previous_icon_${hass_media_player_id}
+                          text_font: icons35 # Use icons font
+                          text_color: 0xababab # Default inactive color
+                          text: "\U000F0472" # mdi:skip-previous icon
+
+                # Play/Pause Button
+                - button:
+                    id: lvgl_media_play_pause_button_${hass_media_player_id}
+                    bg_color: 0x202020
+                    bg_opa: COVER
+                    radius: 10
+                    width: 70
+                    height: 50
+                    state:
+                      disabled: true
+                    on_short_click:
+                      then:
+                        - globals.set:
+                            id: user_is_interacting
+                            value: 'true'
+                        - homeassistant.action:
+                            action: media_player.media_play_pause
+                            data:
+                              entity_id: media_player.${hass_media_player_id}
+                        - delay: 200ms
+                        - globals.set:
+                            id: user_is_interacting
+                            value: 'false'
+                    widgets:
+                      - label:
+                          id: lvgl_media_play_pause_icon_${hass_media_player_id}
+                          text_font: icons35
+                          text_color: 0xababab
+                          text: "\U000F040A" # mdi:play icon (will change to pause if playing)
+
+                # Next Button
+                - button:
+                    id: lvgl_media_next_button_${hass_media_player_id}
+                    bg_color: 0x202020
+                    bg_opa: COVER
+                    radius: 10
+                    width: 70
+                    height: 50
+                    state:
+                      disabled: true
+                    on_short_click:
+                      then:
+                        - globals.set:
+                            id: user_is_interacting
+                            value: 'true'
+                        - homeassistant.action:
+                            action: media_player.media_next_track
+                            data:
+                              entity_id: media_player.${hass_media_player_id}
+                        - delay: 200ms
+                        - globals.set:
+                            id: user_is_interacting
+                            value: 'false'
+                    widgets:
+                      - label:
+                          id: lvgl_media_next_icon_${hass_media_player_id}
+                          text_font: icons35
+                          text_color: 0xababab
+                          text: "\U000F03A7" # mdi:skip-next icon

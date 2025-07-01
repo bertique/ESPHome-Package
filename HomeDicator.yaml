@@ -67,6 +67,10 @@ sensor:
       vars:
         hass_climate_id: "badezimmer_fenster" # You can ommit the "climate."
 
+  - !include
+      file: HomeDicator/core/templates/media_player.yaml
+      vars:
+        hass_media_player_id: "your_media_player_entity_id" # <--- REPLACE WITH YOUR HOME ASSISTANT MEDIA PLAYER ID (e.g., "living_room_speaker")
 
 
 binary_sensor:
@@ -138,6 +142,10 @@ lvgl:
                     max_value: 25
                     unit: "°C"
                     icon: "\U000F1819"
+              - !include
+                  file: HomeDicator/user_interface/templates/tiles/media_player/wide.yaml
+                  vars:
+                    hass_media_player_id: "your_media_player_entity_id" # <--- USE THE SAME ID HERE
     - id: second_page
       bg_opa: TRANSP
       widgets:
