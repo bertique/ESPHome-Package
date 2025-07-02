@@ -5,7 +5,7 @@
 # and updates corresponding LVGL UI elements.
 
 platform: homeassistant
-id: ${hass_media_player_id} # Unique ID for this media player entity within ESPHome
+id: title_${hass_media_player_id} # Unique ID for this media player entity within ESPHome
 entity_id: media_player.${hass_media_player_id} # The Home Assistant entity ID
 
 # Attribute listeners to update LVGL labels
@@ -21,95 +21,3 @@ on_value:
             return x;
           }
           return "No Title"; # Default text if no title is available
-
-attribute: media_artist
-on_value:
-  then:
-    - lvgl.label.update:
-        id: lvgl_media_artist_${hass_media_player_id}
-        text: !lambda |-
-          // Update the media artist label
-          if (x.length() > 0) {
-            return x;
-          }
-          return "No Artist"; # Default text if no artist is available
-
-attribute: media_album_name
-on_value:
-  then:
-    - lvgl.label.update:
-        id: lvgl_media_album_${hass_media_player_id}
-        text: !lambda |-
-          // Update the media album label
-          if (x.length() > 0) {
-            return x;
-          }
-          return "No Album"; # Default text if no album is available
-
-# State listener for playback controls (play/pause button icon)
-on_value:
-  - if:
-      condition:
-        lambda: |-
-          return !id(user_is_interacting); # Only update if user is not actively interacting
-      then:
-        - if:
-            condition:
-              lambda: 'return x == "playing";'
-            then:
-              - lvgl.label.update:
-                  id: lvgl_media_play_pause_icon_${hass_media_player_id}
-                  text: "\U000F03E4" # mdi:pause icon
-            else:
-              - lvgl.label.update:
-                  id: lvgl_media_play_pause_icon_${hass_media_player_id}
-                  text: "\U000F040A" # mdi:play icon
-        - if:
-            condition:
-              lambda: 'return x == "playing" || x == "paused";'
-            then:
-              # Enable control buttons if media is playing or paused
-              - lvgl.button.update:
-                  id: lvgl_media_play_pause_button_${hass_media_player_id}
-                  state:
-                    disabled: false
-              - lvgl.button.update:
-                  id: lvgl_media_next_button_${hass_media_player_id}
-                  state:
-                    disabled: false
-              - lvgl.button.update:
-                  id: lvgl_media_previous_button_${hass_media_player_id}
-                  state:
-                    disabled: false
-              - lvgl.label.update: # Update icon color to active
-                  id: lvgl_media_play_pause_icon_${hass_media_player_id}
-                  text_color: 0xeebf41
-              - lvgl.label.update: # Update icon color to active
-                  id: lvgl_media_next_icon_${hass_media_player_id}
-                  text_color: 0xeebf41
-              - lvgl.label.update: # Update icon color to active
-                  id: lvgl_media_previous_icon_${hass_media_player_id}
-                  text_color: 0xeebf41
-            else:
-              # Disable control buttons if media is off or unavailable
-              - lvgl.button.update:
-                  id: lvgl_media_play_pause_button_${hass_media_player_id}
-                  state:
-                    disabled: true
-              - lvgl.button.update:
-                  id: lvgl_media_next_button_${hass_media_player_id}
-                  state:
-                    disabled: true
-              - lvgl.button.update:
-                  id: lvgl_media_previous_button_${hass_media_player_id}
-                  state:
-                    disabled: true
-              - lvgl.label.update: # Update icon color to inactive
-                  id: lvgl_media_play_pause_icon_${hass_media_player_id}
-                  text_color: 0xababab
-              - lvgl.label.update: # Update icon color to inactive
-                  id: lvgl_media_next_icon_${hass_media_player_id}
-                  text_color: 0xababab
-              - lvgl.label.update: # Update icon color to inactive
-                  id: lvgl_media_previous_icon_${hass_media_player_id}
-                  text_color: 0xababab

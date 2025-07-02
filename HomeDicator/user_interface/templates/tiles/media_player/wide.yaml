@@ -65,7 +65,7 @@ obj:
                 flex_flow: ROW
                 flex_align_main: SPACE_AROUND # Distribute buttons evenly
                 flex_align_cross: CENTER
-                pad_all: 0
+                #pad_all: 0
                 pad_row: 0
                 pad_column: 20 # Spacing between buttons
               widgets:
