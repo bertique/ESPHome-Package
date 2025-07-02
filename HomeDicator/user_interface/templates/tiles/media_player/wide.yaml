@@ -97,7 +97,7 @@ obj:
                           id: lvgl_media_previous_icon_${hass_media_player_id}
                           text_font: icons35 # Use icons font
                           text_color: 0xababab # Default inactive color
-                          text: "\U000F0472" # mdi:skip-previous icon
+                          text: "\U000F04AE" # mdi:skip-previous icon
 
                 # Play/Pause Button
                 - button:
@@ -157,4 +157,4 @@ obj:
                           id: lvgl_media_next_icon_${hass_media_player_id}
                           text_font: icons35
                           text_color: 0xababab
-                          text: "\U000F03A7" # mdi:skip-next icon
+                          text: "\U000F04AD" # mdi:skip-next icon

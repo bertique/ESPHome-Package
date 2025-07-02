@@ -156,6 +156,8 @@ font:
       "\U000F1157", # mdi:paper-roll
       "\U000F1158", # mdi:paper-roll-outline
       "\U000F0F80", # mdi:patio-heater
+      "\U000F040A", # mdi:play
+      "\U000F03E4", # mdi:pause
       "\U000F1A5F", # mdi:pool-thermometer
       "\U000F1A60", # mdi:post-lamp
       "\U000F0425", # mdi:power
@@ -195,6 +197,8 @@ font:
       "\U000F1C9A", # mdi:server-outline
       "\U000F09A0", # mdi:shower
       "\U000F09A1", # mdi:shower-head
+      "\U000F04AE", # mdi:skip-previous
+      "\U000F04AD", # mdi:skip-next
       "\U000F04B9", # mdi:sofa
       "\U000F156D", # mdi:sofa-outline
       "\U000F0A72", # mdi:solar-power
