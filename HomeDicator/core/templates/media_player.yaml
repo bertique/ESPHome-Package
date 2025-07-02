@@ -13,9 +13,8 @@ on_value:
     - lvgl.label.update:
         id: lvgl_media_title_${hass_media_player_id}
         text: !lambda |-
-          // Update the media title label
-          std::string title = to_string(x);
-          if (title.length() > 0) {
-            return title;
-          }
-          return "No Title";
+          // Update the media title labe
+          //if (x.length() > 0) {
+            return x;
+          //}
+          //return "No Title";
