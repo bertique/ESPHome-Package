@@ -7,9 +7,6 @@
 platform: homeassistant
 id: title_${hass_media_player_id} # Unique ID for this media player entity within ESPHome
 entity_id: media_player.${hass_media_player_id} # The Home Assistant entity ID
-
-# Attribute listeners to update LVGL labels
-# Listen for changes to media_title and media_artist
 attribute: media_title
 on_value:
   then:
@@ -17,7 +14,8 @@ on_value:
         id: lvgl_media_title_${hass_media_player_id}
         text: !lambda |-
           // Update the media title label
-          if (x.length() > 0) {
-            return x;
+          std::string title = to_string(x);
+          if (title.length() > 0) {
+            return title;
           }
-          return "No Title"; # Default text if no title is available
+          return "No Title";
