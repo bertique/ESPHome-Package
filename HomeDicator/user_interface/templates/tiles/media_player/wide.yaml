@@ -46,7 +46,7 @@ obj:
 
           # Media Album Name
           - label:
-              id: lvgl_media_album_${hass_media_player_id}
+              id: lvgl_media_album_name_${hass_media_player_id}
               text_font: libreFranklin10
               text_color: 0xababab
               text: "No Album"

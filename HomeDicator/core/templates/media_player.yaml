@@ -5,16 +5,15 @@
 # and updates corresponding LVGL UI elements.
 
 platform: homeassistant
-id: title_${hass_media_player_id} # Unique ID for this media player entity within ESPHome
+id: ${hass_media_player_attribute}_${hass_media_player_id} # Unique ID for this media player entity within ESPHome
 entity_id: media_player.${hass_media_player_id} # The Home Assistant entity ID
-attribute: media_title
+attribute: ${hass_media_player_attribute}
 on_value:
   then:
     - lvgl.label.update:
-        id: lvgl_media_title_${hass_media_player_id}
+        id: lvgl_${hass_media_player_attribute}_${hass_media_player_id}
         text: !lambda |-
-          // Update the media title labe
-          //if (x.length() > 0) {
+          if (x.length() > 0) {
             return x;
-          //}
-          //return "No Title";
+          }
+          return "No ${hass_media_player_attribute}";

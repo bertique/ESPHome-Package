@@ -43,17 +43,11 @@ sensor:
       file: HomeDicator/core/templates/sensor.yaml
       vars:
         hass_sensor_id: "indoor_outdoor_meter_47da" # You can ommit the "sensor."
-        
   - !include 
       file: HomeDicator/core/templates/sensor.yaml
       vars:
-         hass_sensor_id: "meter_plus_0f23" # You can ommit the "climate."
-  - !include
-      file: HomeDicator/core/templates/media_player.yaml
-      vars:
-        hass_media_player_id: "your_media_player_entity_id" # <--- REPLACE WITH YOUR HOME ASSISTANT MEDIA PLAYER ID (e.g., "living_room_speaker")
-
-
+        hass_sensor_id: "meter_plus_0f23" # You can ommit the "climate."
+        
 text_sensor:
    - !include
       file: HomeDicator/core/templates/switch_sensor.yaml
@@ -62,6 +56,21 @@ text_sensor:
          hass_entity_id: "elgato_cw43j1a07550"
          icon_on: "\U000F0335" # mdi:lightbulb
          icon_off: "\U000F0336" # mdi:lightbulb-outline
+   - !include
+      file: HomeDicator/core/templates/media_player.yaml
+      vars:
+        hass_media_player_id: "basement"
+        hass_media_player_attribute: "media_title"
+   - !include
+      file: HomeDicator/core/templates/media_player.yaml
+      vars:
+        hass_media_player_id: "basement"
+        hass_media_player_attribute: "media_artist"
+   - !include
+      file: HomeDicator/core/templates/media_player.yaml
+      vars:
+        hass_media_player_id: "basement"
+        hass_media_player_attribute: "media_album_name"  
 
 
 binary_sensor:
@@ -86,57 +95,6 @@ lvgl:
             file: HomeDicator/user_interface/templates/page_title.yaml
             vars:
               title: "Temperature" # CHANGE PAGE TITLE HERE
-        - obj:
-            styles: content_container
-            layout:
-              type: FLEX
-              flex_flow: ROW_WRAP
-              flex_align_main: LV_FLEX_ALIGN_START
-              flex_align_cross: CENTER
-            widgets:
-              - !include
-                  file: HomeDicator/user_interface/templates/tiles/thermostat/wide_half_height.yaml
-                  vars:
-                    color: 0xeebf41
-                    hass_climate_id: "schlafzimmer_schreibtisch"
-                    min_value: 5
-                    max_value: 25
-                    unit: "°C"
-                    icon: "\U000F08A0"
-              - !include
-                  file: HomeDicator/user_interface/templates/tiles/thermostat/square.yaml
-                  vars:
-                    color: 0xeebf41
-                    hass_climate_id: "wohnzimmer_fenster_links"
-                    min_value: 5
-                    max_value: 25
-                    unit: "°C"
-                    title: "Living Room"
-              - !include
-                  file: HomeDicator/user_interface/templates/tiles/thermostat/square.yaml
-                  vars:
-                    color: 0xeebf41
-                    hass_climate_id: "kuche"
-                    min_value: 5
-                    max_value: 25
-                    unit: "°C"
-                    title: "Kittchen"
-              - !include
-                  file: HomeDicator/user_interface/templates/tiles/thermostat/wide_half_height.yaml
-                  vars:
-                    color: 0xeebf41
-                    hass_climate_id: "badezimmer_fenster"
-                    min_value: 5
-                    max_value: 25
-                    unit: "°C"
-                    icon: "\U000F1819"
-    - id: second_page
-      bg_opa: TRANSP
-      widgets:
-        - !include
-            file: HomeDicator/user_interface/templates/page_title.yaml
-            vars:
-              title: "Sensors" # CHANGE PAGE TITLE HERE
         - obj:
             styles: content_container
             layout: 
@@ -174,4 +132,4 @@ lvgl:
               - !include
                   file: HomeDicator/user_interface/templates/tiles/media_player/wide.yaml
                   vars:
-                    hass_media_player_id: "your_media_player_entity_id" # <--- USE THE SAME ID HERE
+                    hass_media_player_id: "basement"
