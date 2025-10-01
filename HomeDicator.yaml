@@ -52,8 +52,8 @@ sensor:
   - !include 
       file: HomeDicator/core/templates/sensor.yaml
       vars:
-        hass_sensor_id: "meter_plus_0f23" # You can ommit the "climate."
-        
+        hass_sensor_id: "h5075_a64e_temperature" # You can ommit the "climate."
+
 text_sensor:
    - !include
       file: HomeDicator/core/templates/switch_sensor.yaml
@@ -63,20 +63,27 @@ text_sensor:
          icon_on: "\U000F0335" # mdi:lightbulb
          icon_off: "\U000F0336" # mdi:lightbulb-outline
    - !include
+      file: HomeDicator/core/templates/switch_sensor.yaml
+      vars:
+         hass_domain: "light"
+         hass_entity_id: "sophias_light"
+         icon_on: "\U000F0335" # mdi:lightbulb
+         icon_off: "\U000F0336" # mdi:lightbulb-outline
+   - !include
       file: HomeDicator/core/templates/media_player.yaml
       vars:
-        hass_media_player_id: "basement"
+        hass_media_player_id: "top_floor"
         hass_media_player_attribute: "media_title"
    - !include
       file: HomeDicator/core/templates/media_player.yaml
       vars:
-        hass_media_player_id: "basement"
+        hass_media_player_id: "top_floor"
         hass_media_player_attribute: "media_artist"
    - !include
       file: HomeDicator/core/templates/media_player.yaml
       vars:
-        hass_media_player_id: "basement"
-        hass_media_player_attribute: "media_album_name"  
+        hass_media_player_id: "top_floor"
+        hass_media_player_attribute: "media_album_name"
    - !include
       file: HomeDicator/core/templates/state_media_player.yaml
       vars:
@@ -119,7 +126,7 @@ lvgl:
               type: FLEX
               flex_flow: ROW_WRAP
               flex_align_main: LV_FLEX_ALIGN_START
-              flex_align_cross: CENTER
+              flex_align_cross: CENTER            
             widgets:
               - !include
                   file: HomeDicator/user_interface/templates/tiles/sensor/square.yaml
@@ -127,16 +134,26 @@ lvgl:
                     color: 0xeebf41
                     hass_sensor_id: "indoor_outdoor_meter_47da"
                     icon: "\U000F02E3"
-                    unit: "°C"
+                    unit: "°F"
                     title: "Outdoor"
               - !include
                   file: HomeDicator/user_interface/templates/tiles/sensor/square.yaml
                   vars:
                     color: 0xeebf41
-                    hass_sensor_id: "meter_plus_0f23"
+                    hass_sensor_id: "h5075_a64e_temperature"
                     icon: "\U000F02E3"
-                    unit: "°C"
-                    title: "Living room"
+                    unit: "°F"
+                    title: "Family room"
+              - !include
+                  file: HomeDicator/user_interface/templates/tiles/switch/square.yaml
+                  vars:
+                    colors: 0xeebf41
+                    hass_domain: "light"
+                    hass_entity_id: "sophias_light"
+                    hass_action: "light.toggle"
+                    icon_on: "\U000F0335" # mdi:lightbulb
+                    icon_off: "\U000F0336" # mdi:lightbulb-outline
+                    title: "Office"
               - !include
                   file: HomeDicator/user_interface/templates/tiles/switch/square.yaml
                   vars:
@@ -150,4 +167,4 @@ lvgl:
               - !include
                   file: HomeDicator/user_interface/templates/tiles/media_player/wide.yaml
                   vars:
-                    hass_media_player_id: "basement"
+                    hass_media_player_id: "top_floor"
