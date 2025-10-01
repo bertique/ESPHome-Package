@@ -1,0 +1,19 @@
+# HomeDicator/core/templates/media_player.yaml
+#
+# This template defines a Home Assistant media_player sensor
+# that tracks the state and attributes of a specified media player entity
+# and updates corresponding LVGL UI elements.
+
+platform: homeassistant
+id: ${hass_media_player_attribute}_${hass_media_player_id} # Unique ID for this media player entity within ESPHome
+entity_id: media_player.${hass_media_player_id} # The Home Assistant entity ID
+attribute: ${hass_media_player_attribute}
+on_value:
+  then:
+    - lvgl.label.update:
+        id: lvgl_${hass_media_player_attribute}_${hass_media_player_id}
+        text: !lambda |-
+          if (x.length() > 0) {
+            return x;
+          }
+          return "No ${hass_media_player_attribute}";

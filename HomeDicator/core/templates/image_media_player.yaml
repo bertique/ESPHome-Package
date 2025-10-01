@@ -1,0 +1,13 @@
+id: album_art_${hass_media_player_id}
+url: "http://homeassistant.local:8123/local/glitterbox.png?ts=1"
+#update_interval: 120s
+format: jpg
+type: rgb565
+resize: 150x150
+on_download_finished:
+  - logger.log: "Download in online image done"
+  - lvgl.image.update:
+      id: album_art_widget_${hass_media_player_id}
+      src: album_art_${hass_media_player_id}
+on_error:
+  - logger.log: "Error downloading online image"

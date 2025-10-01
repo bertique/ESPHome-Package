@@ -4,14 +4,20 @@ esp32:
   flash_size: 8MB
   framework:
     type: esp-idf
-    version: 5.2.2
-    platform_version: 6.7.0
+    #version: 5.5.0
+    #platform_version: espressif32 @ 6.12.0
     sdkconfig_options:
       CONFIG_ESPTOOLPY_FLASHSIZE_8MB: y
       CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: y
       CONFIG_ESP32S3_DATA_CACHE_64KB: y
       CONFIG_SPIRAM_FETCH_INSTRUCTIONS: y
       CONFIG_SPIRAM_RODATA: y
+      CONFIG_SPIRAM_SUPPORT: y
+      CONFIG_ESP32_SPIRAM_SUPPORT: y
+      CONFIG_SPIRAM_USE_CAPS_ALLOC: y
+      CONFIG_SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY: y
+      CONFIG_SPIRAM_ALLOW_STACK_EXTERNAL_MEMORY: y
+      CONFIG_HEAP_ALLOC_CAPS_ALLOW_EXTERNAL: y
 
 psram:
   mode: octal

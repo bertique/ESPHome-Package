@@ -1,0 +1,9 @@
+platform: homeassistant
+id: album_art_url_${hass_media_player_id}
+entity_id: camera.camera_proxy_camera_homeassistant_local
+attribute: entity_picture
+on_value:
+    - logger.log: "Album art found"
+    - online_image.set_url:
+        id: album_art_${hass_media_player_id}
+        url: !lambda 'return "http://homeassistant.local:8123" + x;' # Set the online_image URL to the text_sensor value

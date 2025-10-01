@@ -32,6 +32,12 @@ substitutions:
 packages:
   HomeDicator: !include HomeDicator/device/seeed-sensecap-indicator.yaml
 
+http_request:
+  watchdog_timeout: 30s  # Slow response from API server can cause watchdog to reboot device
+
+#logger:
+#    level: DEBUG # Set to DEBUG for more information, WARNING for less information.
+
 sensor:
   # ----------------------------------------------------------------------
   # ADD YOUR SENSORS HERE
@@ -43,12 +49,11 @@ sensor:
       file: HomeDicator/core/templates/sensor.yaml
       vars:
         hass_sensor_id: "indoor_outdoor_meter_47da" # You can ommit the "sensor."
-        
   - !include 
       file: HomeDicator/core/templates/sensor.yaml
       vars:
-         hass_sensor_id: "meter_plus_0f23" # You can ommit the "climate."
-
+        hass_sensor_id: "meter_plus_0f23" # You can ommit the "climate."
+        
 text_sensor:
    - !include
       file: HomeDicator/core/templates/switch_sensor.yaml
@@ -57,7 +62,29 @@ text_sensor:
          hass_entity_id: "elgato_cw43j1a07550"
          icon_on: "\U000F0335" # mdi:lightbulb
          icon_off: "\U000F0336" # mdi:lightbulb-outline
-
+   - !include
+      file: HomeDicator/core/templates/media_player.yaml
+      vars:
+        hass_media_player_id: "basement"
+        hass_media_player_attribute: "media_title"
+   - !include
+      file: HomeDicator/core/templates/media_player.yaml
+      vars:
+        hass_media_player_id: "basement"
+        hass_media_player_attribute: "media_artist"
+   - !include
+      file: HomeDicator/core/templates/media_player.yaml
+      vars:
+        hass_media_player_id: "basement"
+        hass_media_player_attribute: "media_album_name"  
+   - !include
+      file: HomeDicator/core/templates/state_media_player.yaml
+      vars:
+        hass_media_player_id: "top_floor"
+   - !include
+      file: HomeDicator/core/templates/art_media_player.yaml
+      vars:
+        hass_media_player_id: "top_floor"
 
 binary_sensor:
   # ---------------------
@@ -68,6 +95,11 @@ switch:
   # ----------------------
   # ADD YOUR SWITCHES HERE
   # ----------------------
+online_image:
+  - !include
+    file: HomeDicator/core/templates/image_media_player.yaml
+    vars:
+      hass_media_player_id: top_floor
 
 lvgl:  
   pages:
@@ -115,3 +147,7 @@ lvgl:
                     icon_on: "\U000F0335" # mdi:lightbulb
                     icon_off: "\U000F0336" # mdi:lightbulb-outline
                     title: "Elgato"
+              - !include
+                  file: HomeDicator/user_interface/templates/tiles/media_player/wide.yaml
+                  vars:
+                    hass_media_player_id: "basement"
