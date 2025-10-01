@@ -1,0 +1,75 @@
+# HomeDicator/core/templates/media_player.yaml
+#
+# This template defines a Home Assistant media_player sensor
+# that tracks the state and attributes of a specified media player entity
+# and updates corresponding LVGL UI elements.
+
+platform: homeassistant
+id: state_${hass_media_player_id} # Unique ID for this media player entity within ESPHome
+entity_id: media_player.${hass_media_player_id} # The Home Assistant entity ID
+on_value:
+    - #if:
+        #condition:
+        #  lambda: |-
+        #    return !id(user_is_interacting);
+        then:
+          - if:
+              condition:
+                lambda: 'return x == "playing";'
+              then:
+                - lvgl.label.update:
+                    id: lvgl_media_play_pause_icon_${hass_media_player_id}
+                    text: "\U000F03E4" 
+              else:
+                - lvgl.label.update:
+                    id: lvgl_media_play_pause_icon_${hass_media_player_id}
+                    text: "\U000F040A" 
+          - if:
+              condition:
+                lambda: 'return x == "playing" || x == "paused";'
+              then:
+                # Enable control buttons if media is playing or paused
+                - lvgl.button.update:
+                    id: lvgl_media_play_pause_button_${hass_media_player_id}
+                    state:
+                      disabled: false
+                - lvgl.button.update:
+                    id: lvgl_media_next_button_${hass_media_player_id}
+                    state:
+                      disabled: false
+                - lvgl.button.update:
+                    id: lvgl_media_previous_button_${hass_media_player_id}
+                    state:
+                      disabled: false
+                - lvgl.label.update: # Update icon color to active
+                    id: lvgl_media_play_pause_icon_${hass_media_player_id}
+                    text_color: 0xeebf41
+                - lvgl.label.update: # Update icon color to active
+                    id: lvgl_media_next_icon_${hass_media_player_id}
+                    text_color: 0xeebf41
+                - lvgl.label.update: # Update icon color to active
+                    id: lvgl_media_previous_icon_${hass_media_player_id}
+                    text_color: 0xeebf41
+              else:
+                # Disable control buttons if media is off or unavailable
+                - lvgl.button.update:
+                    id: lvgl_media_play_pause_button_${hass_media_player_id}
+                    state:
+                      disabled: true
+                - lvgl.button.update:
+                    id: lvgl_media_next_button_${hass_media_player_id}
+                    state:
+                      disabled: true
+                - lvgl.button.update:
+                    id: lvgl_media_previous_button_${hass_media_player_id}
+                    state:
+                      disabled: true
+                - lvgl.label.update: # Update icon color to inactive
+                    id: lvgl_media_play_pause_icon_${hass_media_player_id}
+                    text_color: 0xababab
+                - lvgl.label.update: # Update icon color to inactive
+                    id: lvgl_media_next_icon_${hass_media_player_id}
+                    text_color: 0xababab
+                - lvgl.label.update: # Update icon color to inactive
+                    id: lvgl_media_previous_icon_${hass_media_player_id}
+                    text_color: 0xababab

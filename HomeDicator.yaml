@@ -32,6 +32,12 @@ substitutions:
 packages:
   HomeDicator: !include HomeDicator/device/seeed-sensecap-indicator.yaml
 
+http_request:
+  watchdog_timeout: 30s  # Slow response from API server can cause watchdog to reboot device
+
+#logger:
+#    level: DEBUG # Set to DEBUG for more information, WARNING for less information.
+
 sensor:
   # ----------------------------------------------------------------------
   # ADD YOUR SENSORS HERE
@@ -71,7 +77,14 @@ text_sensor:
       vars:
         hass_media_player_id: "basement"
         hass_media_player_attribute: "media_album_name"  
-
+   - !include
+      file: HomeDicator/core/templates/state_media_player.yaml
+      vars:
+        hass_media_player_id: "top_floor"
+   - !include
+      file: HomeDicator/core/templates/art_media_player.yaml
+      vars:
+        hass_media_player_id: "top_floor"
 
 binary_sensor:
   # ---------------------
@@ -82,6 +95,11 @@ switch:
   # ----------------------
   # ADD YOUR SWITCHES HERE
   # ----------------------
+online_image:
+  - !include
+    file: HomeDicator/core/templates/image_media_player.yaml
+    vars:
+      hass_media_player_id: top_floor
 
 lvgl:  
   pages:
