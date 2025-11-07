@@ -49,6 +49,10 @@ sensor:
       file: HomeDicator/core/templates/sensor.yaml
       vars:
         hass_sensor_id: "indoor_outdoor_meter_47da" # You can ommit the "sensor."
+  - !include
+      file: HomeDicator/core/templates/volume_media_player.yaml
+      vars:
+        hass_media_player_id: "top_floor"
   - !include 
       file: HomeDicator/core/templates/sensor.yaml
       vars:

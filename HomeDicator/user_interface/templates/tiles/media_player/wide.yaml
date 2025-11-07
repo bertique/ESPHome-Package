@@ -74,7 +74,7 @@ obj:
                     text_color: 0xababab
                     text: "No Album"
                     pad_bottom: 15
-                    text_align: LEFT
+                    text_align: LEFT # Changed from text_align: LEFT
                     width: 260
                     long_mode: SCROLL
 
@@ -88,7 +88,7 @@ obj:
                       flex_flow: ROW
                       flex_align_main: START
                       flex_align_cross: CENTER
-                      pad_row: 0
+                      pad_row: 5
                       pad_column: 20
                     widgets:
                       # Previous Button
@@ -186,3 +186,50 @@ obj:
                                 text_color: 0xababab
                                 text: "\U000F04AD"
                                 align: CENTER
+                # Volume Controls
+                - obj:
+                    bg_opa: TRANSP
+                    width: SIZE_CONTENT
+                    height: SIZE_CONTENT
+                    layout:
+                      type: FLEX
+                      flex_flow: ROW
+                      flex_align_main: START
+                      flex_align_cross: CENTER
+                      pad_row: 0
+                      pad_column: 10
+                    widgets:
+                      # Volume Down Icon
+                      - label:
+                          id: lvgl_media_volume_down_icon_${hass_media_player_id}
+                          text_font: icons24
+                          text_color: 0xababab
+                          text: "\U000F0581" # mdi:volume-off
+                          align: CENTER
+                      # Volume Slider
+                      - slider:
+                          id: lvgl_media_volume_slider_${hass_media_player_id}
+                          width: 170
+                          height: 10
+                          on_change:
+                            then:
+                              - homeassistant.service:
+                                  service: media_player.volume_set
+                                  data:
+                                    entity_id: media_player.${hass_media_player_id}
+                                    volume_level: !lambda 'return x / 100.0;'
+                      # Volume Level Label
+                      - label:
+                          id: lvgl_media_volume_label_${hass_media_player_id}
+                          text_font: libreFranklin14
+                          text_color: 0xababab
+                          text: "0"
+                          width: 35
+                          text_align: RIGHT
+                      # Volume Up Icon
+                      - label:
+                          id: lvgl_media_volume_up_icon_${hass_media_player_id}
+                          text_font: icons24
+                          text_color: 0xababab
+                          text: "\U000F057E" # mdi:volume-high
+                          align: CENTER

@@ -1,0 +1,12 @@
+platform: homeassistant
+id: top_floor_volume
+entity_id: media_player.${hass_media_player_id}
+attribute: volume_level
+on_value:
+  then:
+    - lvgl.slider.update:
+        id: lvgl_media_volume_slider_${hass_media_player_id}
+        value: !lambda 'return x * 100.0;'
+    - lvgl.label.update:
+        id: lvgl_media_volume_label_${hass_media_player_id}
+        text: !lambda 'return to_string((int)(x * 100.0));'
