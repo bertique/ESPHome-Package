@@ -2,13 +2,19 @@
 substitutions:
     homedicator_core_version_tag: "v0.3.2"
     
+# Enables the ability to read debug information.
+#debug:
+#  update_interval: 10s # How often to check the memory.
+
 sensor:
   - !include core/config/common/sensors/wifi_signal.yaml
   - !include core/config/common/sensors/wifi_signal_percent.yaml
+ # - !include core/config/common/sensors/debug.yaml
 
 text_sensor:
   - !include core/config/common/text_sensors/github_release_tag.yaml
   - !include core/config/common/text_sensors/esphome_version.yaml
+ # - !include core/config/common/text_sensors/reset_reason.yaml
 
 binary_sensor:
   - !include core/config/common/binary_sensors/indicator_button.yaml
