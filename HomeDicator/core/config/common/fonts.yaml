@@ -8,6 +8,7 @@ font:
     bpp: 8
     glyphs: [
       "\U000F001B", # mdi:air-conditioner
+      "\U000F1823", # mdi:human-male-female-child
       "\U000F0D43", # mdi:air-filter
       "\U000F078F", # mdi:alarm-light
       "\U000F0BEA", # mdi:alarm-light-outline
@@ -17,6 +18,7 @@ font:
       "\U000F1819", # mdi:bathtub-outline
       "\U000F0079", # mdi:battery
       "\U000F12A3", # mdi:battery-high
+      "\U000F0599", # mdi:thermometer-bluetooth
       "\U000F12A2", # mdi:battery-medium
       "\U000F008E", # mdi:battery-outline
       "\U000F02E3", # mdi:bed
@@ -26,6 +28,7 @@ font:
       "\U000F08A0", # mdi:bed-empty
       "\U000F1C21", # mdi:bench
       "\U000F00DE", # mdi:brightness-5
+      "\U000F05A8", # mdi:white-balance-sunny
       "\U000F1302", # mdi:bunk-bed
       "\U000F0097", # mdi:bunk-bed-outline
       "\U000F010B", # mdi:car
@@ -275,6 +278,8 @@ font:
       "\U000F0922",  # mdi:wifi-strength-2
       "\U000F0925",  # mdi:wifi-strength-3
       "\U000F0928",  # mdi:wifi-strength-4
+      "\U000F0581",
+      "\U000F057E", # mdi:volume-high
     ]
 
   - file: "https://github.com/Templarian/MaterialDesign-Webfont/raw/master/fonts/materialdesignicons-webfont.ttf"
