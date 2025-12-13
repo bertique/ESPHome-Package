@@ -2,11 +2,11 @@ esphome:
   name: ${device_name}
   friendly_name: ${device_friendly_name}
   project:
-    name: "paulvincentroll.HomeDicator"
+    name: "bertique.HomeDicator"
     version: ${homedicator_core_version_tag}
 
   includes:
-    - HomeDicator/core/helpers/adjust_color.h
+    - components/adjust_color/adjust_color.h
 
   platformio_options:
     build_unflags: -Werror=all
@@ -27,7 +27,7 @@ esphome:
       then:
         - select.set_index:
             id: turn_off_screen_after_selector
-            index: !lambda "return id(turn_off_screen_after_value);"
+            index: 1 #!lambda "return id(turn_off_screen_after_value);"
         - lambda: |-
             id(use_24h_clock_switch).publish_state(id(use_24h_clock));
         - lvgl.widget.update:
