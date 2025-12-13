@@ -4,6 +4,8 @@ substitutions:
   # -----------------------
   device_name: "homedicator"
   device_friendly_name: "HomeDicator"
+  my_ssid: !secret wifi_ssid
+  my_password: !secret  wifi_password
 
   # ---------------------------------------------------------------------------------
   # ENTER API AND OTA KEY HERE
@@ -15,7 +17,7 @@ substitutions:
   # ADJUST YOUR WLAN SETTINGS HERE
   # ------------------------------
   wifi_ssid: !secret wifi_ssid
-  wifi_password: !secret wifi_password
+  wifi_password:  !secret wifi_password
 
   # ----------------------------------------------------------------------------------------------------
   # ADJUST TOTAL NUMBER OF PAGES HERE
