@@ -1,0 +1,237 @@
+# HomeDicator/user_interface/templates/tiles/media_player/large.yaml
+#
+# This template defines a large (4-tile area) LVGL tile for media player control.
+# It arranges media info at the top, cover art in the middle, and controls at the bottom.
+
+obj:
+  height: SIZE_CONTENT
+  width: SIZE_CONTENT
+  pad_all: 0
+  bg_opa: TRANSP
+  widgets:
+    - obj:
+        styles: info_or_button_tile_large # You might need to define this style if it doesn't exist
+        width: 440
+        height: 440
+        layout:
+          type: FLEX
+          flex_flow: COLUMN
+          flex_align_main: SPACE_EVENLY
+          flex_align_cross: CENTER
+          pad_row: 10
+        scrollable: false
+        widgets:
+          # Top section: Title, Artist, Album
+          - obj:
+              bg_opa: TRANSP
+              width: 440
+              height: SIZE_CONTENT
+              layout:
+                type: FLEX
+                flex_flow: COLUMN
+                flex_align_main: START
+                flex_align_cross: CENTER
+                pad_row: 5
+              widgets:
+                # Media Title
+                - label:
+                    id: lvgl_media_title_${hass_media_player_id}
+                    text_font: libreFranklin24
+                    text_color: 0xffffff
+                    text: "No Title"
+                    text_align: CENTER
+                    width: 420
+                    long_mode: SCROLL
+                # Media Artist
+                - label:
+                    id: lvgl_media_artist_${hass_media_player_id}
+                    text_font: libreFranklin18
+                    text_color: 0xababab
+                    text: "No Artist"
+                    text_align: CENTER
+                    width: 420
+                    long_mode: SCROLL
+                # Media Album Name
+                - label:
+                    id: lvgl_media_album_name_${hass_media_player_id}
+                    text_font: libreFranklin14
+                    text_color: 0xababab
+                    text: "No Album"
+                    text_align: CENTER
+                    width: 420
+                    long_mode: SCROLL
+
+          # Middle section: Cover Art
+          - image:
+              id: album_art_widget_${hass_media_player_id}
+              src: album_art_${hass_media_player_id}
+              width: 120
+              height: 120
+              align: CENTER
+              bg_opa: TRANSP
+
+          # Bottom section: Controls
+          - obj:
+              bg_opa: TRANSP
+              height: SIZE_CONTENT
+              layout:
+                type: FLEX
+                flex_flow: COLUMN
+                flex_align_main: CENTER
+                flex_align_cross: CENTER
+                pad_row: 15
+              widgets:
+                # Playback Control Buttons
+                - obj:
+                    bg_opa: TRANSP
+                    width: SIZE_CONTENT
+                    height: SIZE_CONTENT
+                    layout:
+                      type: FLEX
+                      flex_flow: ROW
+                      flex_align_main: CENTER
+                      flex_align_cross: CENTER
+                      pad_column: 20
+                    widgets:
+                      # Previous Button
+                      - button:
+                          id: lvgl_media_previous_button_${hass_media_player_id}
+                          bg_color: 0x202020
+                          bg_opa: COVER
+                          radius: 10
+                          width: 70
+                          height: 50
+                          shadow_width: 0
+                          state:
+                            disabled: true
+                          on_short_click:
+                            then:
+                              - globals.set:
+                                  id: user_is_interacting
+                                  value: 'true'
+                              - homeassistant.action:
+                                  action: media_player.media_previous_track
+                                  data:
+                                    entity_id: media_player.${hass_media_player_id}
+                              - delay: 200ms
+                              - globals.set:
+                                  id: user_is_interacting
+                                  value: 'false'
+                          widgets:
+                            - label:
+                                id: lvgl_media_previous_icon_${hass_media_player_id}
+                                text_font: icons35
+                                text_color: 0xababab
+                                text: "\U000F04AE"
+                                align: CENTER
+
+                      # Play/Pause Button
+                      - button:
+                          id: lvgl_media_play_pause_button_${hass_media_player_id}
+                          bg_color: 0x202020
+                          bg_opa: COVER
+                          radius: 10
+                          width: 70
+                          height: 50
+                          shadow_width: 0
+                          state:
+                            disabled: true
+                          on_short_click:
+                            then:
+                              - globals.set:
+                                  id: user_is_interacting
+                                  value: 'true'
+                              - homeassistant.action:
+                                  action: media_player.media_play_pause
+                                  data:
+                                    entity_id: media_player.${hass_media_player_id}
+                              - delay: 200ms
+                              - globals.set:
+                                  id: user_is_interacting
+                                  value: 'false'
+                          widgets:
+                            - label:
+                                id: lvgl_media_play_pause_icon_${hass_media_player_id}
+                                text_font: icons35
+                                text_color: 0xababab
+                                text: "\U000F040A"
+                                align: CENTER
+
+                      # Next Button
+                      - button:
+                          id: lvgl_media_next_button_${hass_media_player_id}
+                          bg_color: 0x202020
+                          bg_opa: COVER
+                          radius: 10
+                          width: 70
+                          height: 50
+                          shadow_width: 0
+                          state:
+                            disabled: true
+                          on_short_click:
+                            then:
+                              - globals.set:
+                                  id: user_is_interacting
+                                  value: 'true'
+                              - homeassistant.action:
+                                  action: media_player.media_next_track
+                                  data:
+                                    entity_id: media_player.${hass_media_player_id}
+                              - delay: 200ms
+                              - globals.set:
+                                  id: user_is_interacting
+                                  value: 'false'
+                          widgets:
+                            - label:
+                                id: lvgl_media_next_icon_${hass_media_player_id}
+                                text_font: icons35
+                                text_color: 0xababab
+                                text: "\U000F04AD"
+                                align: CENTER
+                # Volume Controls
+                - obj:
+                    bg_opa: TRANSP
+                    width: SIZE_CONTENT
+                    height: SIZE_CONTENT
+                    layout:
+                      type: FLEX
+                      flex_flow: ROW
+                      flex_align_main: START
+                      flex_align_cross: CENTER
+                      pad_row: 0
+                      pad_column: 10
+                    widgets:
+                      # Volume Down Icon
+                      - label:
+                          id: lvgl_media_volume_down_icon_${hass_media_player_id}
+                          text_font: icons24
+                          text_color: 0xababab
+                          text: "\U000F0581" # mdi:volume-off
+                          align: CENTER
+                      # Volume Slider
+                      - slider:
+                          id: lvgl_media_volume_slider_${hass_media_player_id}
+                          width: 250
+                          height: 10
+                          on_change:
+                            then:
+                              - homeassistant.service:
+                                  service: media_player.volume_set
+                                  data:
+                                    entity_id: media_player.${hass_media_player_id}
+                                    volume_level: !lambda 'return x / 100.0;'
+                      # Volume Up Icon
+                      - label:
+                          id: lvgl_media_volume_up_icon_${hass_media_player_id}
+                          text_font: icons24
+                          text_color: 0xababab
+                          text: "\U000F057E" # mdi:volume-high
+                          align: CENTER
+                       # Volume Level Label
+                      - label:
+                          id: lvgl_media_volume_label_${hass_media_player_id}
+                          text_font: libreFranklin14
+                          text_color: 0xababab
+                          text: "0"
+                          width: 35
+                          text_align: RIGHT

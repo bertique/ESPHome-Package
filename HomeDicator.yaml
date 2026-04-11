@@ -66,15 +66,15 @@ text_sensor:
       vars:
          hass_domain: "light"
          hass_entity_id: "elgato_cw43j1a07550"
-         icon_on: "\U000F0335" # mdi:lightbulb
-         icon_off: "\U000F0336" # mdi:lightbulb-outline
+         icon_on: "\U000F1B20"
+         icon_off: "\U000F1B20" 
    - !include
       file: HomeDicator/core/templates/switch_sensor.yaml
       vars:
          hass_domain: "light"
          hass_entity_id: "sophias_light"
-         icon_on: "\U000F0335" # mdi:lightbulb
-         icon_off: "\U000F0336" # mdi:lightbulb-outline
+         icon_on: "\U000F08DD"
+         icon_off: "\U000F08DD" 
    - !include
       file: HomeDicator/core/templates/media_player.yaml
       vars:
@@ -98,6 +98,11 @@ text_sensor:
       file: HomeDicator/core/templates/art_media_player.yaml
       vars:
         hass_media_player_id: "top_floor"
+   # ----------------------------------------------------------------------
+   # DEBUG SENSOR for screen timeout
+   # ----------------------------------------------------------------------
+   - platform: template
+     id: debug_screen_timeout_value
 
 binary_sensor:
   # ---------------------
@@ -122,10 +127,6 @@ lvgl:
     - id: first_page
       bg_opa: TRANSP
       widgets:
-        - !include
-            file: HomeDicator/user_interface/templates/page_title.yaml
-            vars:
-              title: "Temperature" # CHANGE PAGE TITLE HERE
         - obj:
             styles: content_container
             layout: 
@@ -139,7 +140,7 @@ lvgl:
                   vars:
                     color: 0xeebf41
                     hass_sensor_id: "indoor_outdoor_meter_47da"
-                    icon: "\U000F02E3"
+                    icon: "\U000F0599"
                     unit: "°F"
                     title: "Outdoor"
               - !include
@@ -147,7 +148,7 @@ lvgl:
                   vars:
                     color: 0xeebf41
                     hass_sensor_id: "h5075_a64e_temperature"
-                    icon: "\U000F02E3"
+                    icon: "\U000F1823"
                     unit: "°F"
                     title: "Family room"
               - !include
@@ -157,8 +158,8 @@ lvgl:
                     hass_domain: "light"
                     hass_entity_id: "sophias_light"
                     hass_action: "light.toggle"
-                    icon_on: "\U000F0335" # mdi:lightbulb
-                    icon_off: "\U000F0336" # mdi:lightbulb-outline
+                    icon_on: "\U000F08DD"
+                    icon_off: "\U000F08DD" 
                     title: "Office"
               - !include
                   file: HomeDicator/user_interface/templates/tiles/switch/square.yaml
@@ -167,9 +168,20 @@ lvgl:
                     hass_domain: "light"
                     hass_entity_id: "elgato_cw43j1a07550"
                     hass_action: "light.toggle"
-                    icon_on: "\U000F0335" # mdi:lightbulb
-                    icon_off: "\U000F0336" # mdi:lightbulb-outline
+                    icon_on: "\U000F1B20" # mdi:lightbulb
+                    icon_off: "\U000F1B20" # mdi:lightbulb-outline
                     title: "Elgato"
+    - id: second_page
+      bg_opa: TRANSP
+      widgets:
+        - obj:
+            styles: content_container
+            layout: 
+              type: FLEX
+              flex_flow: ROW_WRAP
+              flex_align_main: LV_FLEX_ALIGN_START
+              flex_align_cross: CENTER            
+            widgets:
               - !include
                   file: HomeDicator/user_interface/templates/tiles/media_player/wide.yaml
                   vars:
