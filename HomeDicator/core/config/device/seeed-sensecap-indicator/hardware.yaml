@@ -121,3 +121,4 @@ wifi:
       - lvgl.label.update:
           id: lvgl_wifi_signal_icon
           text: "\U000F092E"
+captive_portal:
