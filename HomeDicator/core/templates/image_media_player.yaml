@@ -1,3 +1,4 @@
+platform: online-image
 id: album_art_${hass_media_player_id}
 url: "http://homeassistant.local:8123/local/glitterbox.png?ts=1"
 #update_interval: 120s

@@ -113,7 +113,7 @@ switch:
   # ----------------------
   # ADD YOUR SWITCHES HERE
   # ----------------------
-online_image:
+image:
   - !include
     file: HomeDicator/core/templates/image_media_player.yaml
     vars:
