@@ -3,6 +3,8 @@ esp32:
   variant: esp32s3
   flash_size: 8MB
   framework:
+    advanced:
+      loop_task_stack_size: 32768
     type: esp-idf
     #version: 5.5.0
     #platform_version: espressif32 @ 6.12.0

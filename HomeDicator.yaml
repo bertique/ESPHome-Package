@@ -120,6 +120,8 @@ image:
       hass_media_player_id: top_floor
 
 lvgl:  
+  buffer_size: 25%
+  full_refresh: true
   pages:
     # ----------------------------
     # ADD / ADJUST YOUR PAGES HERE
