@@ -2,6 +2,9 @@ id: about
 skip: true
 bg_color: 0x0d0d0d
 bg_opa: COVER
+on_load:
+  - lvgl.widget.hide: bottom_pager
+  - lvgl.widget.hide: lvgl_settings_icon
 widgets:
   # PAGE TITLE
   - !include

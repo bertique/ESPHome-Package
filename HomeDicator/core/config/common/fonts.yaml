@@ -280,6 +280,7 @@ font:
       "\U000F0928",  # mdi:wifi-strength-4
       "\U000F0581",
       "\U000F057E", # mdi:volume-high
+      "\U000F0493", # mdi:cog
     ]
 
   - file: "https://github.com/Templarian/MaterialDesign-Webfont/raw/master/fonts/materialdesignicons-webfont.ttf"

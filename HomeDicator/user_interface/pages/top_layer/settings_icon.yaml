@@ -1,0 +1,15 @@
+label:
+    id: lvgl_settings_icon
+    pad_right: 50
+    pad_top: 15
+    align: TOP_RIGHT
+    text_color: 0xFFFFFF
+    text_font: icons24
+    text_align: RIGHT
+    text: "\U000F0493"
+    on_click:
+      then:
+        - lvgl.page.show:
+            id: settings
+            animation: MOVE_LEFT
+            time: ${page_transition_time}

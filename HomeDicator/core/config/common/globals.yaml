@@ -1,8 +1,4 @@
 globals:
-  - id: current_page
-    type: int
-    restore_value: no
-    initial_value: "0"
   - id: pager_dots
     type: lv_obj_t*[${total_pages}]
     restore_value: no
