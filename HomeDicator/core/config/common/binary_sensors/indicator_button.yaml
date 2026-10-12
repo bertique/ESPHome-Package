@@ -13,6 +13,23 @@ on_press:
     - if:
         condition: lvgl.is_paused
         then:
+          # Screen is off: wake it and always start back at the first tile.
           - script.execute: activity_detected
+          - lvgl.tileview.select:
+              id: main_tileview
+              row: 0
+              column: 0
         else:
-          - script.execute: activity_timeout_reached
+          # Screen is on: advance to the next tile, or turn off if we were
+          # already on the last one.
+          - if:
+              condition:
+                lambda: 'return id(current_tile_index) + 1 < ${total_pages};'
+              then:
+                - lvgl.tileview.select:
+                    id: main_tileview
+                    row: 0
+                    column: !lambda 'return id(current_tile_index) + 1;'
+                    animated: true
+              else:
+                - script.execute: activity_timeout_reached
