@@ -10,6 +10,12 @@ on_value:
        lambda: |-
          return !id(user_is_interacting);
      then:
+      - script.execute: activity_detected
+      - lvgl.tileview.select:
+          id: main_tileview
+          row: 0
+          column: 0
+          animated: true
       - logger.log: "running switch on_value"
       - if:
           condition:

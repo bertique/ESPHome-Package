@@ -23,7 +23,9 @@ switch:
   - !include core/config/common/switches/use_24h_clock_switch.yaml
 
 lvgl:
-  disp_bg_color: 0x1b1b1b
+  bottom_layer:
+    bg_color: 0x1b1b1b
+    bg_opa: COVER
   gradients: !include core/config/common/lvgl/gradients.yaml
   on_idle: !include core/config/common/lvgl/on_idle.yaml
   top_layer: !include user_interface/pages/top_layer/top_layer.yaml

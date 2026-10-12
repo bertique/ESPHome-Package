@@ -7,3 +7,4 @@ on_value:
     - online_image.set_url:
         id: album_art_${hass_media_player_id}
         url: !lambda 'return "http://homeassistant.local:8123" + x;' # Set the online_image URL to the text_sensor value
+        update: false # actual download is triggered by art_media_player_refresh.yaml on media_title change, to avoid two concurrent downloads

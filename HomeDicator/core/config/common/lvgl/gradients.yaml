@@ -1,6 +1,5 @@
 - id: temperature_slider
   direction: hor
-  dither: ordered
   stops:
     - color: 0x34b3ce
       position: 0

@@ -12,8 +12,4 @@ on_value:
   then:
     - lvgl.label.update:
         id: lvgl_${hass_media_player_attribute}_${hass_media_player_id}
-        text: !lambda |-
-          if (x.length() > 0) {
-            return x;
-          }
-          return "No ${hass_media_player_attribute}";
+        text: !lambda "return x;"

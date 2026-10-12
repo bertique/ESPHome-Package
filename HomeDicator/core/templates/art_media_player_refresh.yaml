@@ -1,0 +1,33 @@
+# HomeDicator/core/templates/art_media_player_refresh.yaml
+#
+# media_title is the one media_player attribute that's reliably present and
+# updates the moment the track changes. The others aren't as dependable:
+# - The camera proxy's entity_picture attribute (tracked in art_media_player.yaml)
+#   only changes on its own internal cycle, not necessarily when the track
+#   changes, which can delay the album art refresh by several minutes.
+# - Home Assistant's ESPHome attribute subscriptions only push an update when
+#   the attribute is present on the new state. If a track has no artist/album,
+#   nothing is ever sent for that attribute, so it silently keeps showing the
+#   previous track's value.
+# Use media_title as the reliable "track changed" signal to force a fresh
+# album art download and reset the artist/album labels; if the new track does
+# have an artist/album, that attribute's own update will correct the label
+# right after. Also wake the screen, since a new song is worth noticing.
+platform: homeassistant
+id: album_art_refresh_${hass_media_player_id}
+entity_id: media_player.${hass_media_player_id}
+attribute: media_title
+on_value:
+  - script.execute: activity_detected
+  - lvgl.tileview.select:
+      id: main_tileview
+      row: 0
+      column: 1
+      animated: true
+  - component.update: album_art_${hass_media_player_id}
+  - lvgl.label.update:
+      id: lvgl_media_artist_${hass_media_player_id}
+      text: ""
+  - lvgl.label.update:
+      id: lvgl_media_album_name_${hass_media_player_id}
+      text: ""

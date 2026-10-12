@@ -98,6 +98,10 @@ text_sensor:
       file: HomeDicator/core/templates/art_media_player.yaml
       vars:
         hass_media_player_id: "top_floor"
+   - !include
+      file: HomeDicator/core/templates/art_media_player_refresh.yaml
+      vars:
+        hass_media_player_id: "top_floor"
    # ----------------------------------------------------------------------
    # DEBUG SENSOR for screen timeout
    # ----------------------------------------------------------------------
@@ -120,8 +124,7 @@ image:
       hass_media_player_id: top_floor
 
 lvgl:
-  buffer_size: 25%
-  full_refresh: true
+  buffer_size: 12.5%
   pages:
     - id: main_page
       bg_opa: TRANSP
